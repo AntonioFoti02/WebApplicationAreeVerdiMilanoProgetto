@@ -1,0 +1,53 @@
+﻿@model List<WebApplicationAreeVerdiMilanoProgetto.Models.AreaVerde>
+
+@{
+    ViewData["Title"] = "Aree Verdi";
+}
+
+<div class="container my-4">
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h2 class="card-title text-success">🌳 Aree Verdi</h2>
+            <p class="card-text">Consulta e filtra le aree verdi presenti a Milano. Usa il campo di ricerca per trovare località specifiche.</p>
+        </div>
+    </div>
+
+    <!-- Form di Ricerca -->
+    <form method="get" action="@Url.Action("Search")" class="mb-4">
+        <div class="input-group">
+            <input type="text" class="form-control" id="localita" name="localita" placeholder="Inserisci nome località..." />
+            <button class="btn btn-success" type="submit">
+                <i class="bi bi-search"></i> Cerca
+            </button>
+        </div>
+    </form>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning" role="alert">
+            Nessun risultato trovato per la località richiesta.
+        </div>
+    }
+
+    <!-- Tabella Dati -->
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle">
+            <tbody>
+                @foreach (var area in Model.Take(20))
+                {
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title text-success">@area.Nomelocalità</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">@area.Tipo</h6>
+                            <p class="card-text">@area.Descrizione</p>
+                            <p><strong>Superficie:</strong> @area.Superficietotaleinmq mq</p>
+                            <p><strong>Classificazione:</strong> <span class="badge bg-info">@area.Classificazione</span></p>
+                        </div>
+                    </div>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
